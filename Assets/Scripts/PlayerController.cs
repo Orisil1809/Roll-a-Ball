@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 public class PlayerController : MonoBehaviour
 {
 
@@ -14,18 +15,23 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     public Vector3 randLocation;
     //public GameObject ground;
-    private int count;
-    public Text countText;
-
+    private int score;
+    public Text scoreText;
+    public Text highScoreText;
     public GameObject winText;
+    private int highscore;
+    [SerializeField] private UnityEvent my_Trigger;
     //private Collider ground_collider;
     // Start is called before the first frame update
     void Start()
     {
-        count = 0;
+        score = 0;
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
-        SetCountText();
+        //SetCountText();
+        highscore = PlayerPrefs.GetInt("highscore", highscore);
+        highScoreText.text = "Highscore: " + highscore;
+
         
     }
 
@@ -69,6 +75,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("HEREEE");
+            AnimateCollision();
+            my_Trigger.Invoke();
+        }
     }
     void OnTriggerEnter(Collider other)
     {
@@ -77,9 +89,18 @@ public class PlayerController : MonoBehaviour
         {
             other.transform.position = randLocation;
             //other.gameObject.SetActive(false);
-            count++;
-            SetCountText();
+            score++;
+            SetScoreText();
+            if(score > highscore)
+            {
+                highscore = score;
+                highScoreText.text = "Highscore: " + highscore;
+
+                PlayerPrefs.SetInt("highscore", highscore);
+            }
+            
         }
+
     }
     void OnCollisionExit(Collision other)
     {
@@ -87,14 +108,19 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+        
     }
-    void SetCountText()
+    void SetScoreText()
     {
-        countText.text = "Count: " + count.ToString();
-        if(count==10)
+        scoreText.text = "Score: " + score.ToString();
+        if(score==10)
         {
             winText.SetActive(true);
         }
+    }
+    public void AnimateCollision()
+    {
+        Debug.Log("It Worked");
     }
 
 }

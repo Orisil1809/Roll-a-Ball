@@ -7,6 +7,7 @@ public class Pauser : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject pause_menu;
+    public GameObject player;
     void Start()
     {
         
@@ -28,5 +29,14 @@ public class Pauser : MonoBehaviour
                 pause_menu.SetActive(false);
             }
         }
+    }
+
+    public void EndGame()
+    {
+        //Instead of immediately destroying, pause game, set bool gameOver, make it jump sky high and when it lands it shattered and destroyed
+        //And then presents gameOver screen, with an option to replay
+        //Also add high score
+        Destroy(player);
+        Time.timeScale = 0;
     }
 }

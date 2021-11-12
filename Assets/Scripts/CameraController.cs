@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate() //Runs every frame but after update is run. So when we got here we know for sure that the player moved to its new position.
     {
-        transform.position = player.transform.position + offset;
+        if(GameObject.Find("Player") !=null)
+            transform.position = player.transform.position + offset;
     }
 }
