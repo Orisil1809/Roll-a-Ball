@@ -5,6 +5,8 @@ using UnityEngine;
 public class Pauser : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public GameObject pause_menu;
     void Start()
     {
         
@@ -18,10 +20,12 @@ public class Pauser : MonoBehaviour
             if(Time.timeScale == 1)
             {
                 Time.timeScale = 0;
+                pause_menu.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1;
+                pause_menu.SetActive(false);
             }
         }
     }

@@ -13,10 +13,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 jump;
     private bool isGrounded;
     public Vector3 randLocation;
-    public GameObject ground;
+    //public GameObject ground;
     private int count;
     public Text countText;
-    public Text winText;
+
+    public GameObject winText;
     //private Collider ground_collider;
     // Start is called before the first frame update
     void Start()
@@ -25,8 +26,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         SetCountText();
-        winText.text = "";
-        //mesh = GetComponent<MeshFilter>().mesh;
+        
     }
 
     // Update is called once per frame
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         countText.text = "Count: " + count.ToString();
         if(count==10)
         {
-            winText.text = "You Win";
+            winText.SetActive(true);
         }
     }
 
