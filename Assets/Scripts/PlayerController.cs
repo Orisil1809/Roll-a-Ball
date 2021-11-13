@@ -18,21 +18,28 @@ public class PlayerController : MonoBehaviour
     private int score;
     public Text scoreText;
     public Text highScoreText;
+    public Text FinalScoreText;
     public GameObject winText;
     private int highscore;
     [SerializeField] private UnityEvent my_Trigger;
+    public bool blink = false;
+    private float timer;
+    private float WaitTime = 0.2f;
+    private Renderer my_renderer;
     //private Collider ground_collider;
     // Start is called before the first frame update
     void Start()
     {
+        blink = false;
         score = 0;
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         //SetCountText();
         highscore = PlayerPrefs.GetInt("highscore", highscore);
         highScoreText.text = "Highscore: " + highscore;
+        my_renderer = this.gameObject.GetComponent<Renderer>();
 
-        
+
     }
 
     // Update is called once per frame
@@ -44,7 +51,23 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(jump * jump_power, ForceMode.Impulse);
             //isGrounded = false;
         }
+        #region try_blink
+        //if (blink)
+        //{
+        //    timer += Time.deltaTime;
 
+        //    if (timer < WaitTime)
+        //    {
+        //        my_renderer.material.color = Color.white;
+        //    }
+
+        //    if (timer > WaitTime)
+        //    {
+        //        my_renderer.material.color = Color.red;
+        //    }
+
+        //}
+        #endregion
     }
 
     //void OnCollisionStay()
@@ -77,7 +100,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("HEREEE");
+            FinalScoreText.text = "SCORE: " + score;
             AnimateCollision();
             my_Trigger.Invoke();
         }
@@ -120,7 +143,27 @@ public class PlayerController : MonoBehaviour
     }
     public void AnimateCollision()
     {
-        Debug.Log("It Worked");
+        rb.AddForce(jump * 5f, ForceMode.Impulse);
+        //my_renderer.material.color = Color.red;
+
+        //Invoke("Blink", 0.5f);
+        Blink();
+    }
+    public void Blink()
+    {
+        //blink = true;
+        InvokeRepeating("HelpBlink", 0.2f, 0.5f);
     }
 
+    public void HelpBlink()
+    {
+        if(my_renderer.material.color == Color.red)
+        {
+            my_renderer.material.color = Color.white;
+        }
+        else
+        {
+            my_renderer.material.color = Color.red;
+        }
+    }
 }

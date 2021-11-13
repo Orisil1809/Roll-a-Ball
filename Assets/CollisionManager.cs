@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.Events;
 public class CollisionManager : MonoBehaviour
 {
-    [SerializeField] private UnityEvent my_Trigger;
-    public GameObject my_player;
+    //[SerializeField] private UnityEvent my_Trigger;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Obstacle"))
-        {
-            my_Trigger.Invoke();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Obstacle"))
+    //    {
+    //        oriTrigger.Invoke();
+    //    }
+    //}
 
 
 }

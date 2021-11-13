@@ -8,7 +8,6 @@ public class Pauser : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject pause_menu;
-    public GameObject end_menu;
     public GameObject player;
     void Start()
     {
@@ -35,28 +34,18 @@ public class Pauser : MonoBehaviour
 
     public void QuitGame()
     {
-        Invoke("SetQuitScreen", 3f);
+        //        //Time.timeScale = 0;
+        //#if UNITY_EDITOR
+        //        UnityEditor.EditorApplication.isPlaying = false;
+        //#else
+        //         Application.Quit();
+        //#endif
+        Invoke("Restart", .5f);
     }
 
-    void SetQuitScreen()
-    {
-        end_menu.SetActive(true);
-
-    }
-    public void Restart()
+    void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
-    public void EndGame()
-    {
-        //Debug.Log("PRESSED");
-
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
-    }
-
 }
