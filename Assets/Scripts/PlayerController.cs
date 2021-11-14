@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.Events; 
 public class PlayerController : MonoBehaviour
 {
 
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && Time.timeScale == 1)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && Time.timeScale == 1 && GameManager.IsInputEnabled)
         {
 
             rb.AddForce(jump * jump_power, ForceMode.Impulse);
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     //}
     void FixedUpdate()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && GameManager.IsInputEnabled)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Obstacle"))
         {
             FinalScoreText.text = "SCORE: " + score;
+            GameManager.IsInputEnabled = false;
             AnimateCollision();
             my_Trigger.Invoke();
         }
