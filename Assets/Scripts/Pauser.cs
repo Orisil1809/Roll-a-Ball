@@ -25,11 +25,11 @@ public class Pauser : MonoBehaviour
                 Time.timeScale = 0;
                 pause_menu.SetActive(true);
             }
-            else
-            {
-                Time.timeScale = 1;
-                pause_menu.SetActive(false);
-            }
+            //else
+            //{
+            //    Time.timeScale = 1;
+            //    pause_menu.SetActive(false);
+            //}
         }
     }
 
@@ -42,6 +42,11 @@ public class Pauser : MonoBehaviour
     {
         end_menu.SetActive(true);
 
+    }
+    public void Resume()
+    {
+        pause_menu.SetActive(false);
+        Time.timeScale = 1;
     }
     public void Restart()
     {
